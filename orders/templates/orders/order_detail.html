@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Sipariş Detayları sayfası için stil düzenlemesi -->
+<div class="order-detail-container" style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; height: 80vh; text-align: center; margin-top: 50px;">
+    <h2>Sipariş Detayı - #{{ order.id }}</h2>
+    <p><strong>Toplam Tutar:</strong> {{ order.total_price }} ₺</p>
+    <p><strong>Adres:</strong> {{ order.shipping_address }}</p>
+    <p><strong>Durum:</strong> {{ order.status }}</p>
+</div>
+{% endblock %}

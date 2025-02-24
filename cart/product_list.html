@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="product-list-container" style="display: flex; flex-direction: column; justify-content: flex-start; align-items: center; height: 80vh; margin-top: 50px; text-align: center;">
+    <h2>Ürün Listesi</h2>
+    <ul style="list-style: none; padding: 0; text-align: left; width: 80%; max-width: 800px;">
+        {% for product in products %}
+            <li style="display: flex; align-items: center; margin-bottom: 20px;">
+                <a href="{% url 'product_detail' product.pk %}" style="display: flex; align-items: center;">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100px; height: 100px; margin-right: 10px;">
+                    <span>{{ product.name }}</span>
+                </a> - {{ product.price }} ₺
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
