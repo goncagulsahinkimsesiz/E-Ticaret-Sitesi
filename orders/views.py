@@ -6,16 +6,30 @@ from .models import Order
 from .forms import OrderForm  # forms.py içindeki OrderForm'u import et
 from products.models import Product
 from cart.models import Cart, CartItem
+from django.core.exceptions import PermissionDenied
+
+
 
 class OrderListView(ListView):
     model = Order
     template_name = 'orders/order_list.html'
     context_object_name = 'orders'
 
+    def get_queryset(self):
+        # Kullanıcının sadece kendi siparişlerini getirmesini sağlıyoruz
+        return Order.objects.filter(user=self.request.user)
+
 class OrderDetailView(DetailView):
     model = Order
     template_name = 'orders/order_detail.html'
     context_object_name = 'order'
+
+    def get_object(self):
+        # Kullanıcının sadece kendi siparişinin detayına ulaşabilmesini sağlıyoruz
+        order = super().get_object()
+        if order.user != self.request.user:
+            raise PermissionDenied  # Eğer sipariş sahibiyle giriş yapan kullanıcı uyuşmazsa hata verir
+        return order
 
 class CreateOrderView(CreateView):
     model = Order

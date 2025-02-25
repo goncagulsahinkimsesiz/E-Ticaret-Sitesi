@@ -5,6 +5,6 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
 
-    def _str_(self):
+    def __str__(self):
         return self.username
 
